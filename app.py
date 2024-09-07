@@ -3,7 +3,7 @@ from PyPDF2 import PdfReader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 import google.generativeai as genai
-from langchain.vectorstores import FAISS
+from langchain_community.vectorstores import FAISS
 from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
@@ -19,6 +19,7 @@ api_key = os.getenv("GOOGLE_API_KEY")
 if not api_key:
     st.error("API Key not found. Please set your GOOGLE_API_KEY in the environment variables.")
     st.stop()  # Stop execution if API key is missing
+    st.experimental_rerun()  # Re-run the app to update the UI
 
 genai.configure(api_key=api_key)
 
@@ -154,5 +155,5 @@ def main():
             response = process_user_input(user_question)
             st.write("Reply: ", response)
 
-if __name__ == "_main_":
+if __name__ == "__main__":
     main()
